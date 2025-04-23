@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Analytics Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-chart-line me-2"></i>
+                E-commerce Analytics
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-home me-1"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">
+                            <i class="fas fa-tachometer-alt me-1"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-calculator me-2"></i>Delivery & Refund Prediction</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="predictionForm">
+                            <div class="mb-3">
+                                <label for="platform" class="form-label">Platform</label>
+                                <select class="form-select" id="platform" required>
+                                    <option value="">Select Platform</option>
+                                    <option value="JioMart">JioMart</option>
+                                    <option value="Blinkit">Blinkit</option>
+                                    <option value="BigBasket">BigBasket</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="product_category" class="form-label">Product Category</label>
+                                <select class="form-select" id="product_category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+                                    <option value="Dairy">Dairy</option>
+                                    <option value="Beverages">Beverages</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="order_value" class="form-label">Order Value (INR)</label>
+                                <input type="number" class="form-control" id="order_value" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="delivery_time" class="form-label">Expected Delivery Time (Minutes)</label>
+                                <input type="number" class="form-control" id="delivery_time" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-predict me-2"></i>Predict
+                            </button>
+                        </form>
+                        <div id="predictionResult" class="prediction-result" style="display: none;">
+                            <h5 class="mb-3">Prediction Results:</h5>
+                            <div class="mb-3">
+                                <h6>Delivery Delay:</h6>
+                                <span id="delayPred" class="result-badge"></span>
+                                <div class="probability-bar" id="delayBar"></div>
+                                <small>Probability: <span id="delayProb"></span>%</small>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Refund Request:</h6>
+                                <span id="refundPred" class="result-badge"></span>
+                                <div class="probability-bar" id="refundBar"></div>
+                                <small>Probability: <span id="refundProb"></span>%</small>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Predicted Rating:</h6>
+                                <div class="rating-stars">
+                                    <span id="ratingStars"></span>
+                                    <small class="ms-2">(<span id="ratingValue"></span> stars)</small>
+                                </div>
+                                <div class="probability-bar" id="ratingBar"></div>
+                                <small>Confidence: <span id="ratingProb"></span>%</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-info-circle me-2"></i>About the Model</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>This prediction model analyzes various factors to estimate the likelihood of delivery delays and refund requests:</p>
+                        <ul>
+                            <li>Platform performance metrics</li>
+                            <li>Product category characteristics</li>
+                            <li>Order value patterns</li>
+                            <li>Delivery time expectations</li>
+                        </ul>
+                        <a href="/dashboard" class="btn btn-primary w-100">
+                            <i class="fas fa-chart-bar me-2"></i>View Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html> 
