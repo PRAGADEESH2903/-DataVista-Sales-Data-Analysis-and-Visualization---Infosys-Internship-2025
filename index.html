@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delivery Delay Predictor</title>
+</head>
+<body>
+    <h2>Delivery Delay Prediction</h2>
+    <form id="predictionForm">
+        <label>Enter Features (comma-separated):</label><br>
+        <input type="text" id="features" required><br><br>
+        <button type="submit">Predict</button>
+    </form>
+    <h3>Result: <span id="result"></span></h3>
+
+    <script>
+        document.getElementById("predictionForm").onsubmit = async function(event) {
+            event.preventDefault();
+            let features = document.getElementById("features").value.split(",").map(Number);
+
+            let response = await fetch("/predict", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({"features": features})
+            });
+
+            let result = await response.json();
+            document.getElementById("result").innerText = "Prediction: " + result.prediction;
+        };
+    </script>
+</body>
+</html>
